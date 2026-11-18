@@ -1,0 +1,36 @@
+baseURL = "https://heliophobiapress.com/"
+languageCode = "it-it"
+title = "Heliophobia Press"
+defaultContentLanguage = "it"
+
+[params]
+  descrizione = "Giochi da tavolo, GDR ed editoriali."
+
+# La barra verde sotto il marchio.
+# Per aggiungere o togliere voci, agisci solo qui.
+[[menu.main]]
+  name = "Editoriali"
+  url = "/editoriali/"
+  weight = 1
+
+[[menu.main]]
+  name = "Giochi"
+  url = "/giochi/"
+  weight = 2
+
+[[menu.main]]
+  name = "Chi"
+  url = "/chi/"
+  weight = 3
+
+[[menu.main]]
+  name = "Contatti"
+  url = "/contatti/"
+  weight = 4
+
+[markup.goldmark.renderer]
+  unsafe = true   # permette HTML dentro i file markdown
+
+[markup.highlight]
+  style = "github-dark"
+  noClasses = true

@@ -1,0 +1,186 @@
+/* =========================================================
+   Heliophobia Press
+   Fondo nero, barra verde, foglio bianco.
+   Corpo a 80 colonne su griglia di 24 righe.
+   ========================================================= */
+
+:root{
+  --nero:      #0B0B0B;
+  --verde:     #CCFF00;
+  --verde-cupo:#7A9B00;
+  --arancio:   #FF4A1C;
+  --foglio:    #FDFDFB;
+  --inchiostro:#16160F;
+  --indaco:    #2B2A8C;   /* secondo inchiostro: il grassetto */
+
+  /* --- la griglia ---
+     Il corpo e' monospaziato, quindi 80ch sono esattamente
+     80 caratteri. Il font si restringe con lo schermo in modo
+     che le 80 colonne ci stiano sempre.                    */
+  --corpo: clamp(11px, 1.45vw, 17px);
+  --riga: calc(var(--corpo) * 1.45);  /* altezza di UNA riga */
+  --schermata: 24;                    /* righe per schermata:
+                                         e' anche l'altezza di
+                                         ogni immagine          */
+  --colonne: 80ch;                    /* 80 caratteri esatti */
+
+  --margine: calc(var(--riga) * 2);
+}
+
+*{ box-sizing: border-box; }
+html{ -webkit-text-size-adjust: 100%; }
+
+body{
+  margin: 0;
+  background: var(--nero);
+  color: var(--inchiostro);
+  font-family: 'Anonymous Pro', ui-monospace, Menlo, monospace;
+  font-size: var(--corpo);
+  line-height: var(--riga);
+}
+
+/* ---------- testata ---------- */
+
+.testata{ background: var(--nero); padding: calc(var(--riga)*2) 1rem calc(var(--riga)*1.5); text-align: center; }
+.marchio{ display: inline-block; width: 100%; max-width: calc(var(--colonne) + var(--margine)*2); }
+.marchio svg{ display: block; width: 100%; height: auto; }
+
+/* ---------- barra verde ---------- */
+
+/* larga quanto il foglio, non quanto la finestra */
+.barra{
+  width: 100%;
+  max-width: calc(var(--colonne) + var(--margine)*2);
+  margin: 0 auto;
+  background: var(--verde);
+}
+.barra ul{
+  margin: 0; padding: 0 var(--margine); list-style: none;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 2.5em;
+}
+.barra a{
+  display: block; padding: 0.55em 0;
+  color: var(--nero); text-decoration: none;
+  font-size: 0.8em; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+}
+.barra a:hover, .barra a.attivo{ box-shadow: inset 0 -4px 0 var(--arancio); }
+
+/* ---------- foglio bianco ---------- */
+
+.foglio{
+  width: 100%;
+  max-width: calc(var(--colonne) + var(--margine)*2);
+  margin: var(--riga) auto 0;   /* stacco dalla barra verde */
+  background: var(--foglio);
+  padding: var(--margine);
+}
+
+/* ---------- ogni blocco e' multiplo di riga ---------- */
+
+.foglio p,
+.foglio ul,
+.foglio ol,
+.foglio blockquote{ margin: 0 0 var(--riga); max-width: var(--colonne); }
+
+.foglio h1{
+  font-size: 1.7em; line-height: calc(var(--riga) * 2);
+  margin: 0 0 var(--riga); max-width: var(--colonne);
+  letter-spacing: -0.02em;
+}
+.foglio h2{
+  font-size: 1.15em; line-height: var(--riga);
+  margin: calc(var(--riga) * 2) 0 var(--riga); max-width: var(--colonne);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.foglio h3{ font-size: 1em; line-height: var(--riga); margin: var(--riga) 0 0; max-width: var(--colonne); }
+
+.foglio ul, .foglio ol{ padding-left: 2ch; }
+.foglio li{ margin: 0; }
+
+.foglio strong, .foglio b{ color: var(--indaco); }
+
+.foglio a{ color: var(--inchiostro); text-decoration-color: var(--arancio); text-underline-offset: 3px; }
+.foglio a:hover{ background: var(--verde); }
+
+.meta{
+  font-size: 0.8em; letter-spacing: 0.06em; text-transform: uppercase;
+  color: #6B6B5E; margin: 0 0 var(--riga); max-width: var(--colonne);
+}
+
+blockquote{ padding-left: 2ch; border-left: 3px solid var(--arancio); }
+
+hr{
+  border: 0; height: var(--riga); margin: 0;
+  background: repeating-linear-gradient(to right,
+    var(--nero) 0 8px, transparent 8px 16px);
+  background-position: 0 center; background-size: 100% 2px; background-repeat: no-repeat;
+}
+
+/* ---------- immagini: una schermata intera, 24 righe ---------- */
+
+.foglio img{
+  display: block;
+  width: calc(100% + var(--margine) * 2);
+  margin-left: calc(var(--margine) * -1);
+  margin-right: calc(var(--margine) * -1);
+  margin-bottom: var(--riga);
+  height: calc(var(--riga) * var(--schermata));
+  object-fit: cover;
+  max-width: none;
+}
+
+/* ---------- separatore di schermata, esplicito ---------- */
+
+.schermata{
+  height: var(--riga);
+  margin: 0 0 var(--riga);
+  display: flex; align-items: center; gap: 1ch;
+  color: var(--verde-cupo);
+  font-size: 0.75em; letter-spacing: 0.2em; text-transform: uppercase;
+  white-space: nowrap; overflow: hidden;
+}
+.schermata::before, .schermata::after{
+  content: ""; flex: 1; height: 2px;
+  background: repeating-linear-gradient(to right, var(--nero) 0 6px, transparent 6px 12px);
+}
+
+/* ---------- codice ---------- */
+
+pre{ overflow-x: auto; padding: var(--riga); background: var(--nero); color: var(--verde); margin: 0 0 var(--riga); }
+p code{ background: #EDEDE5; padding: 0 0.3ch; }
+
+/* ---------- elenco articoli ---------- */
+
+.elenco{ list-style: none; margin: 0; padding: 0; }
+.elenco li{ margin: 0 0 var(--riga); padding: 0 0 var(--riga); border-bottom: 1px solid #DEDED4; max-width: var(--colonne); }
+.elenco li:last-child{ border-bottom: 0; }
+.elenco h2{ margin: 0; font-size: 1.05em; text-transform: none; letter-spacing: 0; }
+.elenco h2 a{ text-decoration: none; }
+.elenco .meta{ margin: 0; }
+.elenco p{ margin: 0; }
+
+/* ---------- firma ---------- */
+
+.firma{
+  display: flex; align-items: center; gap: 2ch;
+  margin-top: calc(var(--riga) * 2); padding-top: var(--riga);
+  border-top: 2px solid var(--nero); max-width: var(--colonne);
+}
+.firma img{
+  width: calc(var(--riga)*3); height: calc(var(--riga)*3);
+  margin: 0; border-radius: 50%; object-fit: cover; flex: none;
+}
+.firma p{ margin: 0; font-size: 0.85em; }
+
+/* ---------- piede ---------- */
+
+.piede{
+  padding: calc(var(--riga)*2) 1rem calc(var(--riga)*3);
+  text-align: center; color: var(--verde-cupo);
+  font-size: 0.75em; letter-spacing: 0.1em;
+}
+
+@media (max-width: 760px){
+  :root{ --margine: var(--riga); }
+  .barra ul{ gap: 1.4em; }
+}

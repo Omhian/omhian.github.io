@@ -1,0 +1,13 @@
+{{ define "corpo" }}
+{{ with .Content }}{{ . }}{{ end }}
+
+<ul class="elenco">
+  {{ range first 10 (where .Site.RegularPages "Type" "in" (slice "editoriali" "giochi")) }}
+  <li>
+    <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+    <p class="meta">{{ .Date.Format "2 January 2006" }} &middot; {{ .Type }}</p>
+    <p>{{ .Summary }}</p>
+  </li>
+  {{ end }}
+</ul>
+{{ end }}

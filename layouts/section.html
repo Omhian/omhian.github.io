@@ -1,0 +1,15 @@
+{{ define "titolo" }}{{ .Title }} — {{ .Site.Title }}{{ end }}
+{{ define "corpo" }}
+<h1>{{ .Title }}</h1>
+{{ with .Content }}{{ . }}{{ end }}
+
+<ul class="elenco">
+  {{ range .Pages.ByDate.Reverse }}
+  <li>
+    <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+    <p class="meta">{{ .Date.Format "2 January 2006" }}</p>
+    <p>{{ .Summary }}</p>
+  </li>
+  {{ end }}
+</ul>
+{{ end }}

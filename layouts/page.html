@@ -1,0 +1,20 @@
+{{ define "titolo" }}{{ .Title }} — {{ .Site.Title }}{{ end }}
+{{ define "corpo" }}
+<article>
+  <h1>{{ .Title }}</h1>
+  <p class="meta">
+    {{ .Date.Format "2 January 2006" }}
+    {{ with .Params.autore }} &middot; {{ . }}{{ end }}
+    {{ if gt .ReadingTime 0 }} &middot; {{ .ReadingTime }} min{{ end }}
+  </p>
+
+  {{ .Content }}
+
+  {{ if .Params.firma }}
+  <div class="firma">
+    {{ with .Site.Params.foto }}<img src="{{ . | relURL }}" alt="">{{ end }}
+    <p>{{ .Params.firma }}</p>
+  </div>
+  {{ end }}
+</article>
+{{ end }}
