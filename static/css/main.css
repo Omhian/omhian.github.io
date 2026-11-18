@@ -181,6 +181,10 @@ p code{ background: #EDEDE5; padding: 0 0.3ch; }
   font-size: 0.75em; letter-spacing: 0.1em;
 }
 
+/* senza questa, il link nel piede uscirebbe blu di default */
+.piede a{ color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.piede a:hover{ color: var(--arancio); }
+
 @media (max-width: 760px){
   :root{ --margine: var(--riga); }
   .barra ul{ gap: 1.4em; }
