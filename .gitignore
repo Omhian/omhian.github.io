@@ -1,0 +1,8 @@
+# Il sito compilato: lo ricostruisce GitHub a ogni push, non va versionato.
+public/
+resources/
+.hugo_build.lock
+
+# Robaccia di sistema
+.DS_Store
+Thumbs.db
