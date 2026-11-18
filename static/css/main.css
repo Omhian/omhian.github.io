@@ -43,7 +43,8 @@ body{
 
 .testata{ background: var(--nero); padding: calc(var(--riga)*2) 1rem calc(var(--riga)*1.5); text-align: center; }
 .marchio{ display: inline-block; width: 100%; max-width: calc(var(--colonne) + var(--margine)*2); }
-.marchio svg{ display: block; width: 100%; height: auto; }
+.marchio svg,
+.marchio img{ display: block; width: 100%; height: auto; }
 
 /* ---------- barra verde ---------- */
 

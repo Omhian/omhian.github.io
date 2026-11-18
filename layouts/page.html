@@ -1,4 +1,4 @@
-{{ define "titolo" }}{{ .Title }} — {{ .Site.Title }}{{ end }}
+{{ define "titolo" }}{{ $l := partial "linea.html" . }}{{ if in $l.nome .Title }}{{ $l.nome }}{{ else }}{{ .Title }} — {{ $l.nome }}{{ end }}{{ end }}
 {{ define "corpo" }}
 <article>
   <h1>{{ .Title }}</h1>

@@ -13,19 +13,21 @@ defaultContentLanguage = "it"
   url = "/editoriali/"
   weight = 1
 
+# Da tavolo e di ruolo: restano di marca Press.
 [[menu.main]]
   name = "Giochi"
   url = "/giochi/"
   weight = 2
 
+# Videogiochi. Entrando qui il marchio in testata diventa Studio.
 [[menu.main]]
-  name = "Chi"
-  url = "/chi/"
+  name = "Studio"
+  url = "/studio/"
   weight = 3
 
 [[menu.main]]
-  name = "Contatti"
-  url = "/contatti/"
+  name = "Chi sono"
+  url = "/chi/"
   weight = 4
 
 [markup.goldmark.renderer]

@@ -1,0 +1,7 @@
+{{- /* Quale linea del marchio vale per questa pagina. Unico punto da
+       toccare se un domani si aggiunge una terza linea. */ -}}
+{{- $studio := eq .Section "studio" -}}
+{{- return (dict
+      "slug"  (cond $studio "studio" "press")
+      "nome"  (cond $studio "Heliophobia Studio" "Heliophobia Press")
+      "casa"  (cond $studio "/studio/" "/")) -}}
