@@ -1,0 +1,14 @@
+{{- /* Immagine al vivo su un lato, col testo che le scorre accanto.
+       {{< lato src="/img/x.jpg" lato="sinistra" righe="12" largo="terzo" >}}Didascalia{{< /lato >}}
+       righe: altezza dell'immagine in righe di griglia. La didascalia
+       aggiunge le sue righe sotto: essendo alte una riga ciascuna, il
+       blocco resta comunque in fase con la griglia.                  */ -}}
+{{- $lato  := .Get "lato"  | default "destra" -}}
+{{- $righe := int (.Get "righe" | default 12) -}}
+{{- $testo := trim .Inner " \n" -}}
+
+<figure class="lato{{ if eq $lato "sinistra" }} lato--sinistra{{ end }}{{ if eq (.Get "largo") "terzo" }} lato--terzo{{ end }}"
+        style="--righe: {{ $righe }}">
+  <img src="{{ .Get "src" | relURL }}" alt="{{ .Get "alt" | default $testo }}" loading="lazy">
+  {{- with $testo }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>

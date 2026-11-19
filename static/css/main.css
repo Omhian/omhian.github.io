@@ -18,7 +18,7 @@
      80 caratteri. Il font si restringe con lo schermo in modo
      che le 80 colonne ci stiano sempre.                    */
   --corpo: clamp(11px, 1.45vw, 17px);
-  --riga: calc(var(--corpo) * 1.45);  /* altezza di UNA riga */
+  --riga: calc(var(--corpo) * 1.37);  /* altezza di UNA riga */
   --schermata: 24;                    /* righe per schermata:
                                          e' anche l'altezza di
                                          ogni immagine          */
@@ -32,7 +32,10 @@ html{ -webkit-text-size-adjust: 100%; }
 
 body{
   margin: 0;
-  background: var(--nero);
+  /* Tassello da 256 px ripetuto: a questo contrasto la giunta non si
+     vede, perche' non c'e' niente di abbastanza marcato da riconoscere.
+     2,8 KB, scaricato una volta sola.                                 */
+  background: var(--nero) url("../img/grana-piu.png") repeat;
   color: var(--inchiostro);
   font-family: 'Anonymous Pro', ui-monospace, Menlo, monospace;
   font-size: var(--corpo);
@@ -41,7 +44,8 @@ body{
 
 /* ---------- testata ---------- */
 
-.testata{ background: var(--nero); padding: calc(var(--riga)*2) 1rem calc(var(--riga)*1.5); text-align: center; }
+/* niente fondo proprio: altrimenti coprirebbe la grana del body */
+.testata{ padding: calc(var(--riga)*2) 1rem calc(var(--riga)*1.5); text-align: center; }
 .marchio{ display: inline-block; width: 100%; max-width: calc(var(--colonne) + var(--margine)*2); }
 .marchio svg,
 .marchio img{ display: block; width: 100%; height: auto; }
@@ -130,9 +134,65 @@ hr{
   max-width: none;
 }
 
+/* ---------- immagine al vivo con testo intorno ----------
+   Tocca il bordo del foglio da un lato, il testo le scorre accanto.
+   L'altezza e' sempre un numero intero di righe, cosi' il testo che
+   riprende sotto resta in fase con la griglia.                        */
+
+.lato{
+  float: right; clear: right;
+  width: 50%;
+  margin: 0 calc(var(--margine) * -1) var(--riga) var(--margine);
+}
+.lato--sinistra{
+  float: left; clear: left;
+  margin: 0 var(--margine) var(--riga) calc(var(--margine) * -1);
+}
+.lato--terzo{ width: 36%; }
+
+.foglio .lato img{
+  display: block; width: 100%; max-width: none;
+  margin: 0; object-fit: cover;
+  height: calc(var(--riga) * var(--righe, 12));
+}
+/* La didascalia puo' andare a capo quanto vuole: ogni sua riga e' alta
+   una riga di griglia, quindi il conto torna comunque. Tagliarla a
+   lunghezza fissa farebbe sparire parole.                            */
+.lato figcaption{
+  color: #6B6B5E; font-size: 0.75em; letter-spacing: 0.08em;
+  padding-right: var(--margine);
+}
+.lato--sinistra figcaption{ padding-right: 0; padding-left: var(--margine); }
+
+/* un titolo non si affianca mai a un'immagine: ricomincia sotto */
+.foglio h2, .foglio h3{ clear: both; }
+
+/* ---------- immagine a mezza schermata ----------
+   Larga quanto le altre, alta esattamente 12 righe: taglia la pagina
+   a meta' invece di riempirla.                                        */
+
+.foglio .mezza{ clear: both; margin: 0 0 var(--riga); }
+.foglio .mezza img{
+  height: calc(var(--riga) * 12);
+  margin-bottom: 0;
+}
+.foglio .mezza figcaption{
+  color: #6B6B5E; font-size: 0.75em; letter-spacing: 0.08em;
+}
+
+@media (max-width: 760px){
+  /* niente testo in un filo di spazio: a schermo stretto tornano piene */
+  .lato{ float: none; width: calc(100% + var(--margine) * 2);
+         margin: 0 calc(var(--margine) * -1) var(--riga); }
+  /* la didascalia rientra a filo del testo, non del bordo al vivo */
+  .lato figcaption,
+  .lato--sinistra figcaption{ padding: 0 var(--margine); }
+}
+
 /* ---------- separatore di schermata, esplicito ---------- */
 
 .schermata{
+  clear: both;
   height: var(--riga);
   margin: 0 0 var(--riga);
   display: flex; align-items: center; gap: 1ch;

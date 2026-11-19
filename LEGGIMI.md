@@ -163,3 +163,68 @@ nell'altro repo.
 Per vederla in locale mentre ci lavori:
 
     hugo server -D
+
+## Sfondo
+
+Il nero del fondo porta una grana: `static/img/grana-piu.png`, un tassello
+da 256 px ripetuto, 2,8 KB. E' un'immagine ferma, non un'animazione:
+niente script e niente batteria.
+
+La ripetizione non si vede, e il motivo e' proprio che e' debole. Una
+giunta si nota solo se c'e' qualcosa di abbastanza marcato da
+riconoscere; a questo contrasto non c'e'. Se un domani la vuoi piu'
+presente, rigenera il tassello piu' acceso ma sappi che da li' in poi la
+ripetizione comincia a vedersi.
+
+Si vede solo nei margini laterali, dietro la testata e sotto il piede: il
+foglio bianco e' opaco e copre il centro. Su telefono il foglio arriva ai
+bordi e non si vede quasi niente.
+
+## Interlinea
+
+`--riga` e' `--corpo * 1.37`. Era 1.45.
+
+Il corpo non e' fisso, e' `clamp(11px, 1.45vw, 17px)`: si restringe con lo
+schermo perche' le 80 colonne ci stiano sempre. Per questo l'interlinea e'
+un rapporto e non una misura in punti: togliere un punto fisso
+significherebbe togliere il 5% sul desktop e il 9% su schermo stretto,
+cioe' proprio dove serve piu' aria.
+
+Sotto 1.37, su righe da 80 caratteri, l'occhio comincia a sbagliare rigo
+quando torna a sinistra. Se un giorno vorrai davvero l'effetto colonna di
+giornale, la leva non e' l'interlinea ma la larghezza: a 62 caratteri
+un'interlinea stretta funziona. Costa pero' le 80 colonne, che sono il
+motivo per cui il sito e' questo sito.
+
+## Immagini
+
+Tre disposizioni. In tutte e tre l'altezza e' un numero intero di righe,
+cosi' il testo sotto resta in fase con la griglia di base.
+
+**Schermata intera.** Una normale immagine markdown: `![](/img/x.jpg)`.
+Larga quanto il foglio, alta 24 righe, ritagliata al centro. Prepara
+immagini panoramiche, circa 3:1.
+
+**Mezza schermata.** Larga uguale, alta 12 righe: taglia la pagina a meta'
+invece di riempirla.
+
+    {{< mezza src="/img/x.jpg" >}}Didascalia{{< /mezza >}}
+
+**Al vivo con testo intorno.** Tocca il bordo del foglio da un lato, il
+testo le scorre accanto con due righe di stacco.
+
+    {{< lato src="/img/x.jpg" lato="destra" righe="12" >}}Didascalia{{< /lato >}}
+
+    lato    sinistra | destra            (predefinito: destra)
+    righe   altezza in righe di griglia  (predefinito: 12)
+    largo   terzo                        (senza, e' meta' colonna)
+    alt     testo alternativo            (senza, usa la didascalia)
+
+La didascalia puo' andare a capo quanto vuole: ogni sua riga e' alta una
+riga di griglia, quindi il conto torna comunque.
+
+Sotto i 760 px le immagini al vivo tornano a tutta larghezza: su telefono
+il testo accanto a un'immagine finirebbe in un filo di spazio illeggibile.
+
+I titoli `h2` e `h3` ricominciano sempre sotto un'immagine, non le si
+affiancano mai.

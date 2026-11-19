@@ -1,0 +1,7 @@
+{{- /* Immagine larga quanto il foglio, alta mezza schermata: 12 righe.
+       {{< mezza src="/img/x.jpg" >}}Didascalia{{< /mezza >}}              */ -}}
+{{- $testo := trim .Inner " \n" -}}
+<figure class="mezza">
+  <img src="{{ .Get "src" | relURL }}" alt="{{ .Get "alt" | default $testo }}" loading="lazy">
+  {{- with $testo }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>
